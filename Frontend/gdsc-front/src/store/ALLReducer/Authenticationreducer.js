@@ -8,12 +8,12 @@ const intialstate={
 export const createaccount=createAsyncThunk('/signup',async(data)=>{
     console.log(data);
     try{
-     const response=axios.post('/api/auth/signup',data)
+     const response=axios.post('https://gdsc-project-1.onrender.com/auth/signup',data)
      toast.promise(response,{
         loading:"wait creating the account",
         success: "your account has created successfully otp send on your email please verify it",
         error:(err)=>{
-            return err.response.data
+            return err?.response?.data
         }
      })
      const resp=await response;
@@ -27,12 +27,12 @@ export const createaccount=createAsyncThunk('/signup',async(data)=>{
 })
 export  const Verify=createAsyncThunk('/verify',async(data)=>{
     try{
-     const response=axios.post('/api/auth/verify',data)
+     const response=axios.post('https://gdsc-project-1.onrender.com/auth/verify',data)
      toast.promise(response,{
         loading:"wait while verify  the account",
         success: "account verified successfully",
         error:(err)=>{
-            return err.response.data
+            return err?.response?.data
         }
      })
      const resp=await response;
@@ -46,12 +46,12 @@ export  const Verify=createAsyncThunk('/verify',async(data)=>{
 export const authin=createAsyncThunk('/signin',async(data)=>{
     console.log(data);
     try{
-     const response=axios.post('/api/auth/signin',data)
+     const response=axios.post('https://gdsc-project-1.onrender.com/auth/signin',data)
      toast.promise(response,{
         loading:"wait signing the account",
         success: "user signed successfully",
         error:(err)=>{
-            return err.response.data
+            return err?.response?.data
         }
      })
      const resp=await response;
@@ -65,12 +65,12 @@ export const authin=createAsyncThunk('/signin',async(data)=>{
 export const viewmember=createAsyncThunk('/member',async()=>{
     //console.log(data);
     try{
-     const response=axios.get('/api/auth/alluser')
+     const response=axios.get('https://gdsc-project-1.onrender.com/auth/alluser',{withCredentials:true})
      toast.promise(response,{
         loading:"wait fetching user",
         success: "user fetched successfully",
         error:(err)=>{
-            return err.response.data
+             return err?.response?.data
         }
      })
      const resp=await response;
@@ -84,12 +84,12 @@ export const viewmember=createAsyncThunk('/member',async()=>{
 export const logout=createAsyncThunk('/logout',async()=>{
     //console.log(data);
     try{
-     const response=axios.post('/api/auth/logout')
+     const response=axios.post('https://gdsc-project-1.onrender.com/auth/logout')
      toast.promise(response,{
         loading:"wait logging out user",
         success: "user logout successfully",
         error:(err)=>{
-            return err.response.data
+            return err?.response?.data
         }
      })
      const resp=await response;

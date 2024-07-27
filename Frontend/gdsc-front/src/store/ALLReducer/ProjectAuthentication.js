@@ -10,7 +10,7 @@ export const createproject=createAsyncThunk('/addproject',async(data)=>{
     form.append("techstackused",data.techstackused);
     form.append("thumbnail",data.thumbnail);
     try{
-     const response=axios.post('/api/project/addfile',form)
+     const response=axios.post('https://gdsc-project-1.onrender.com/project/addfile',form,{withCredentials:true})
      toast.promise(response,{
         loading:"wait creating the project",
         success: "your project has been created successfully",
@@ -28,10 +28,10 @@ export const createproject=createAsyncThunk('/addproject',async(data)=>{
 export const viewproject=createAsyncThunk('/viewproject',async(data)=>{
     console.log(data);
     try{
-     const response=axios.get(`/api/project/view/${data}`)
+     const response=axios.get(`https://gdsc-project-1.onrender.com/project/view/${data}`,{withCredentials:true})
      toast.promise(response,{
-        loading:"wait creating the project",
-        success: "your project has been created successfully",
+        loading:"wait showing all the project",
+        success: "your project has been fetched successfully",
         error:"failed to project"
      })
      const resp=await response;
@@ -46,7 +46,7 @@ export const viewproject=createAsyncThunk('/viewproject',async(data)=>{
 export const deleteproject=createAsyncThunk('/deleteproject',async(data)=>{
     console.log(data);
     try{
-     const response=axios.delete(`/api/project/deleteproject/${data}`)
+     const response=axios.delete(`https://gdsc-project-1.onrender.com/project/deleteproject/${data}`,{withCredentials:true})
      toast.promise(response,{
         loading:"wait while deleting the project",
         success: "your project has been deleted successfully",
@@ -63,7 +63,7 @@ export const deleteproject=createAsyncThunk('/deleteproject',async(data)=>{
 })
 export const editproject=createAsyncThunk('/deleteproject',async(data)=>{
     try{
-     const response=axios.post(`/api/project/deleteproject/${data.projectid}`)
+     const response=axios.post(`https://gdsc-project-1.onrender.com/project/deleteproject/${data.projectid}`,{withCredentials:true})
      toast.promise(response,{
         loading:"wait while updating the project",
         success: "your project has been updated successfully",
