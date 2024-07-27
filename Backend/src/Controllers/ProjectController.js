@@ -13,10 +13,10 @@ export const Addfile=asynchandler(async(req,res,next)=>{
     if(!projectname || !githubprojectlink){
         throw new ApiError(400,"Project name and github project link are required")
     }
+    console.log(req.file)
     if(!req.file){
         throw new ApiError(400,"thumbnail is missing")
     }
-    console.log(req.file)
     const cloudinaryresponse = await uploadfile(req.file.path);
     console.log(cloudinaryresponse);
     if (!cloudinaryresponse) {
