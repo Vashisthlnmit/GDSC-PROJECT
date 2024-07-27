@@ -1,6 +1,7 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios"
+
 import toast from "react-hot-toast"
+import axiosInstance from "../../Helper/axiosinstance";
 const intialstate={
     isloggedin:localStorage.getItem("isloggedin") || false,
     data:localStorage.getItem("data") || {}
@@ -8,12 +9,12 @@ const intialstate={
 export const createaccount=createAsyncThunk('/signup',async(data)=>{
     console.log(data);
     try{
-     const response=axios.post('https://gdsc-project-1.onrender.com/auth/signup',data)
+     const response=axiosInstance.post('auth/signup',data)
      toast.promise(response,{
         loading:"wait creating the account",
         success: "your account has created successfully otp send on your email please verify it",
         error:(err)=>{
-            return err?.response?.data
+            return err?.message
         }
      })
      const resp=await response;
@@ -27,12 +28,12 @@ export const createaccount=createAsyncThunk('/signup',async(data)=>{
 })
 export  const Verify=createAsyncThunk('/verify',async(data)=>{
     try{
-     const response=axios.post('https://gdsc-project-1.onrender.com/auth/verify',data)
+     const response=axiosInstance.post('auth/verify',data)
      toast.promise(response,{
         loading:"wait while verify  the account",
         success: "account verified successfully",
         error:(err)=>{
-            return err?.response?.data
+            return err?.message
         }
      })
      const resp=await response;
@@ -46,12 +47,12 @@ export  const Verify=createAsyncThunk('/verify',async(data)=>{
 export const authin=createAsyncThunk('/signin',async(data)=>{
     console.log(data);
     try{
-     const response=axios.post('https://gdsc-project-1.onrender.com/auth/signin',data)
+     const response=axiosInstance.post('auth/signin',data)
      toast.promise(response,{
         loading:"wait signing the account",
         success: "user signed successfully",
         error:(err)=>{
-            return err?.response?.data
+            return err?.message
         }
      })
      const resp=await response;
@@ -65,12 +66,12 @@ export const authin=createAsyncThunk('/signin',async(data)=>{
 export const viewmember=createAsyncThunk('/member',async()=>{
     //console.log(data);
     try{
-     const response=axios.get('https://gdsc-project-1.onrender.com/auth/alluser',{withCredentials:true})
+     const response=axiosInstance.get('auth/alluser')
      toast.promise(response,{
         loading:"wait fetching user",
         success: "user fetched successfully",
         error:(err)=>{
-             return err?.response?.data
+            return err?.message
         }
      })
      const resp=await response;
@@ -84,12 +85,12 @@ export const viewmember=createAsyncThunk('/member',async()=>{
 export const logout=createAsyncThunk('/logout',async()=>{
     //console.log(data);
     try{
-     const response=axios.post('https://gdsc-project-1.onrender.com/auth/logout',{withCredentials:true})
+     const response=axiosInstance.post('auth/logout')
      toast.promise(response,{
         loading:"wait logging out user",
         success: "user logout successfully",
         error:(err)=>{
-            return err?.response?.data
+            return err?.message
         }
      })
      const resp=await response;

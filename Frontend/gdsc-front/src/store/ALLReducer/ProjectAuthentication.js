@@ -1,6 +1,7 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"
 import toast from "react-hot-toast"
+import axiosInstance from "../../Helper/axiosinstance";
 export const createproject=createAsyncThunk('/addproject',async(data)=>{
     console.log(data);
     const form=new FormData;
@@ -10,11 +11,13 @@ export const createproject=createAsyncThunk('/addproject',async(data)=>{
     form.append("techstackused",data.techstackused);
     form.append("thumbnail",data.thumbnail);
     try{
-     const response=axios.post('https://gdsc-project-1.onrender.com/project/addfile',form,{withCredentials:true})
+     const response=axiosInstance.post('project/addfile',form)
      toast.promise(response,{
         loading:"wait creating the project",
         success: "your project has been created successfully",
-        error:"failed to project"
+        error:(err)=>{
+            return err?.message
+        }
      })
      const resp=await response;
      console.log(resp);
@@ -28,11 +31,13 @@ export const createproject=createAsyncThunk('/addproject',async(data)=>{
 export const viewproject=createAsyncThunk('/viewproject',async(data)=>{
     console.log(data);
     try{
-     const response=axios.get(`https://gdsc-project-1.onrender.com/project/view/${data}`,{withCredentials:true})
+     const response=axiosInstance.get(`project/view/${data}`)
      toast.promise(response,{
         loading:"wait showing all the project",
         success: "your project has been fetched successfully",
-        error:"failed to project"
+        error:(err)=>{
+           return err?.message
+        }
      })
      const resp=await response;
      console.log(resp);
@@ -46,11 +51,13 @@ export const viewproject=createAsyncThunk('/viewproject',async(data)=>{
 export const deleteproject=createAsyncThunk('/deleteproject',async(data)=>{
     console.log(data);
     try{
-     const response=axios.delete(`https://gdsc-project-1.onrender.com/project/deleteproject/${data}`,{withCredentials:true})
+     const response=axiosInstance.delete(`project/deleteproject/${data}`)
      toast.promise(response,{
         loading:"wait while deleting the project",
         success: "your project has been deleted successfully",
-        error:"failed to delete project"
+        error:(err)=>{
+           return err?.message
+        }
      })
      const resp=await response;
      console.log(resp);
@@ -63,11 +70,13 @@ export const deleteproject=createAsyncThunk('/deleteproject',async(data)=>{
 })
 export const editproject=createAsyncThunk('/deleteproject',async(data)=>{
     try{
-     const response=axios.post(`https://gdsc-project-1.onrender.com/project/deleteproject/${data.projectid}`,{withCredentials:true})
+     const response=axiosInstance.post(`project/deleteproject/${data.projectid}`)
      toast.promise(response,{
         loading:"wait while updating the project",
         success: "your project has been updated successfully",
-        error:"failed to edit project"
+        error:(err)=>{
+            return err?.message
+        }
      })
      const resp=await response;
      console.log(resp);
