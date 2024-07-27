@@ -84,7 +84,7 @@ export const viewmember=createAsyncThunk('/member',async()=>{
 export const logout=createAsyncThunk('/logout',async()=>{
     //console.log(data);
     try{
-     const response=axios.post('https://gdsc-project-1.onrender.com/auth/logout')
+     const response=axios.post('https://gdsc-project-1.onrender.com/auth/logout',{withCredentials:true})
      toast.promise(response,{
         loading:"wait logging out user",
         success: "user logout successfully",
