@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import { asynchandler } from "../Helper/asynchandler.js";
 export const authmiddleware=asynchandler(async(req,res,next)=>{
     const token=req.cookies?.Accesstoken || req.header("Authorization")?.replace("Bearer ", "");
-    console.log(token);
         if(!token){
             throw new ApiError(400,"Unauthorized Request");
         }
